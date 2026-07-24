@@ -506,6 +506,17 @@ body {
 /* ---------- 王様命令パネル ---------- */
 #king-command-panel { border-color: var(--gold); }
 
+.target-select-block {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.target-select-item {
+  flex: 1;
+  min-width: 0;
+}
+
 /* ---------- 命令発表画面 ---------- */
 .command-scroll {
   background: var(--bg-night-deep);

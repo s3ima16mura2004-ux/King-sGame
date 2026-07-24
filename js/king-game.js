@@ -622,6 +622,8 @@ function enterDrawScreen(room) {
   );
 }
 
+let currentTemplateIndex = null;
+
 function setupKingPanel() {
   $("king-command-panel").hidden = false;
 
@@ -643,23 +645,88 @@ function setupKingPanel() {
   }
 
   select.onchange = () => applyTemplate();
-  $("btn-reroll").onclick = () => applyTemplate();
+  $("btn-reroll").onclick = () => rerollTargets();
+  $("target-a-select").onchange = () => {
+    populateTargetSelects(COMMAND_TEMPLATES_FLAT[currentTemplateIndex], { keepA: true });
+    renderCommandFromTargets();
+  };
+  $("target-b-select").onchange = () => renderCommandFromTargets();
+}
+
+// 対象①・対象②のプルダウンを、参加人数(王様自身を除く)に合わせて作り直す
+function populateTargetSelects(tpl, opts) {
+  opts = opts || {};
+  const allCandidates = Array.from({ length: state.playerCount || 3 }, (_, i) => i + 1)
+    .filter((n) => n !== state.myNumber);
+
+  const selectA = $("target-a-select");
+  const prevA = selectA.value;
+  selectA.innerHTML = allCandidates.map((n) => `<option value="${n}">${n}番</option>`).join("");
+  if (opts.keepA && allCandidates.map(String).includes(prevA)) {
+    selectA.value = prevA;
+  }
+
+  if (tpl.slots === 2) {
+    $("target-b-block").hidden = false;
+    const selectB = $("target-b-select");
+    const prevB = selectB.value;
+    const bCandidates = allCandidates.filter((n) => String(n) !== selectA.value);
+    selectB.innerHTML = bCandidates.map((n) => `<option value="${n}">${n}番</option>`).join("");
+    if (bCandidates.map(String).includes(prevB)) {
+      selectB.value = prevB;
+    }
+  } else {
+    $("target-b-block").hidden = true;
+  }
+}
+
+function renderCommandFromTargets() {
+  const tpl = COMMAND_TEMPLATES_FLAT[currentTemplateIndex];
+  if (!tpl) return;
+  const a = $("target-a-select").value;
+  const b = $("target-b-select").value;
+
+  let text = tpl.text.replace("{A}", a);
+  if (tpl.slots === 2) text = text.replace("{B}", b);
+  $("command-text").value = text;
 }
 
 function applyTemplate() {
   const select = $("template-select");
   if (select.value === "") {
     $("btn-reroll").hidden = true;
+    $("target-select-block").hidden = true;
+    currentTemplateIndex = null;
     return;
   }
-  const tpl = COMMAND_TEMPLATES_FLAT[Number(select.value)];
+  currentTemplateIndex = Number(select.value);
+  const tpl = COMMAND_TEMPLATES_FLAT[currentTemplateIndex];
   const nums = pickUniqueNumbers(tpl.slots, state.playerCount || 3, state.myNumber);
 
-  let text = tpl.text.replace("{A}", nums[0]);
-  if (tpl.slots === 2) text = text.replace("{B}", nums[1]);
+  populateTargetSelects(tpl);
+  $("target-a-select").value = nums[0];
+  if (tpl.slots === 2) {
+    populateTargetSelects(tpl, { keepA: true });
+    $("target-b-select").value = nums[1];
+  }
 
-  $("command-text").value = text;
+  $("target-select-block").hidden = false;
   $("btn-reroll").hidden = false;
+  renderCommandFromTargets();
+}
+
+function rerollTargets() {
+  if (currentTemplateIndex == null) return;
+  const tpl = COMMAND_TEMPLATES_FLAT[currentTemplateIndex];
+  const nums = pickUniqueNumbers(tpl.slots, state.playerCount || 3, state.myNumber);
+
+  populateTargetSelects(tpl);
+  $("target-a-select").value = nums[0];
+  if (tpl.slots === 2) {
+    populateTargetSelects(tpl, { keepA: true });
+    $("target-b-select").value = nums[1];
+  }
+  renderCommandFromTargets();
 }
 
 $("btn-send-command").addEventListener("click", async () => {

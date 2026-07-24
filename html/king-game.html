@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/king-game.css?v=2">
+<link rel="stylesheet" href="../css/king-game.css?v=3">
 </head>
 <body>
 
@@ -118,7 +118,19 @@
       <select id="template-select" class="text-input">
         <option value="">-- 選ぶ --</option>
       </select>
-      <button id="btn-reroll" class="btn btn-ghost btn-small" hidden>番号を引き直す</button>
+
+      <div id="target-select-block" class="target-select-block" hidden>
+        <div class="target-select-item">
+          <label class="field-label" for="target-a-select">対象①</label>
+          <select id="target-a-select" class="text-input"></select>
+        </div>
+        <div id="target-b-block" class="target-select-item" hidden>
+          <label class="field-label" for="target-b-select">対象②</label>
+          <select id="target-b-select" class="text-input"></select>
+        </div>
+      </div>
+
+      <button id="btn-reroll" class="btn btn-ghost btn-small" hidden>番号をランダムに引き直す</button>
 
       <label class="field-label" for="command-text">命令内容(自由に編集できます)</label>
       <textarea id="command-text" class="text-input textarea-input" rows="3" placeholder="例: ①番の人が一発ギャグをする"></textarea>
@@ -158,7 +170,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
 <script src="../js/king-game-config.js?v=1"></script>
-<script src="../js/king-game.js?v=2"></script>
+<script src="../js/king-game.js?v=3"></script>
 
 </body>
 </html>
