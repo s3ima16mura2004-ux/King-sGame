@@ -16,12 +16,16 @@ const COMMAND_CATEGORIES = [
   {
     label: "定番",
     items: [
-      { slots: 1, text: "{A}番の人が10秒間変な顔をキープする" },
       { slots: 1, text: "{A}番の人が今の気持ちを一言で表す" },
       { slots: 1, text: "{A}番の人が今日一番言いたかったことを言う" },
       { slots: 1, text: "次の乾杯の音頭を{A}番の人がとる" },
       { slots: 1, text: "{A}番の人が謎の高いテンションで挨拶する" },
-      { slots: 2, text: "{A}番と{B}番が背中合わせになる" }
+      { slots: 1, text: "{A}番の人が店員さんにおすすめを聞く" },
+      { slots: 1, text: "{A}番の人が今夜の一言目標を宣言する" },
+      { slots: 1, text: "{A}番の人が好きな言葉を3秒以内に言う" },
+      { slots: 1, text: "{A}番の人が今年やりたいことを1つ発表する" },
+      { slots: 1, text: "{A}番の人が乾杯前に一言スピーチをする" },
+      { slots: 1, text: "{A}番の人がグラスを掲げて誓いの言葉を言う" }
     ]
   },
   {
@@ -32,18 +36,12 @@ const COMMAND_CATEGORIES = [
       { slots: 2, text: "{A}番が{B}番に聞きたいことを一つ質問する" },
       { slots: 1, text: "{A}番の人が自分の長所を3つ言う" },
       { slots: 1, text: "{A}番の人が最近のちょっとした失敗談を話す" },
-      { slots: 1, text: "{A}番の人が休日にしていることを話す" }
-    ]
-  },
-  {
-    label: "一発芸・パフォーマンス",
-    items: [
-      { slots: 1, text: "{A}番の人が一発ギャグをする" },
-      { slots: 1, text: "{A}番の人がモノマネをする" },
-      { slots: 1, text: "{A}番の人が特技を披露する" },
-      { slots: 1, text: "{A}番の人が即興で一言ポエムを詠む" },
-      { slots: 1, text: "{A}番の人が謎のダンスを10秒踊る" },
-      { slots: 2, text: "{A}番と{B}番でどちらが面白いことを言えるか勝負する" }
+      { slots: 1, text: "{A}番の人が休日にしていることを話す" },
+      { slots: 1, text: "{A}番の人が今の職場(学校)で一番好きなところを話す" },
+      { slots: 2, text: "{A}番が{B}番の第一印象を教える" },
+      { slots: 1, text: "{A}番の人が最近感動したことを話す" },
+      { slots: 1, text: "{A}番の人が地味に得意なことを教える" },
+      { slots: 1, text: "{A}番の人が今日一番楽しかった瞬間を話す" }
     ]
   },
   {
@@ -52,18 +50,80 @@ const COMMAND_CATEGORIES = [
       { slots: 2, text: "{A}番と{B}番が腕を組む" },
       { slots: 2, text: "{A}番と{B}番が指切りげんまんする" },
       { slots: 2, text: "{A}番と{B}番でハイタッチする" },
-      { slots: 2, text: "{A}番と{B}番でじゃんけん、負けた方が一発芸" },
-      { slots: 2, text: "{A}番が{B}番の肩を揉んであげる" }
+      { slots: 2, text: "{A}番と{B}番でグータッチする" },
+      { slots: 2, text: "{A}番と{B}番が背中合わせになる" },
+      { slots: 2, text: "{A}番が{B}番の肩を揉んであげる" },
+      { slots: 2, text: "{A}番と{B}番であっち向いてホイ勝負、負けた方が一杯飲む" },
+      { slots: 2, text: "{A}番と{B}番が片手で握手をしたまま10秒キープ" },
+      { slots: 2, text: "{A}番と{B}番でウィンクし合う" },
+      { slots: 2, text: "{A}番と{B}番で指相撲をする" }
     ]
   },
   {
-    label: "お店・奢り系",
+    label: "スキンシップ(ちょっと過激)",
     items: [
-      { slots: 1, text: "次のドリンクは{A}番の人のおごり" },
-      { slots: 1, text: "{A}番の人が次の乾杯用に何か一品頼む" },
+      { slots: 2, text: "{A}番と{B}番がハグをする" },
+      { slots: 2, text: "{A}番と{B}番が10秒間見つめ合う" },
+      { slots: 2, text: "{A}番と{B}番で耳打ちして一言伝え合う" },
       { slots: 2, text: "{A}番が{B}番にお酌をする" },
-      { slots: 1, text: "会計の端数を{A}番の人が多めに払う" },
-      { slots: 1, text: "{A}番の人が店員さんにおすすめを聞く" }
+      { slots: 2, text: "{A}番と{B}番が腕相撲をする" },
+      { slots: 2, text: "{A}番と{B}番が手をつないだまま乾杯する" },
+      { slots: 2, text: "{A}番が{B}番の手のひらに指で文字を書いて当てっこする" }
+    ]
+  },
+  {
+    label: "頭脳戦・心理戦系",
+    items: [
+      { slots: 2, text: "{A}番と{B}番でしりとり対決、先に詰まった方が負け" },
+      { slots: 2, text: "{A}番と{B}番で「せーの」で同じ数字(1〜5)を指で出せたら成功" },
+      { slots: 2, text: "{A}番と{B}番で「せーの」で好きな色を同時に言い、一致するか試す" },
+      { slots: 2, text: "{A}番と{B}番でどちらが先に瞬きするか我慢比べ" },
+      { slots: 2, text: "{A}番と{B}番で、片方が出した手の形(グー/チョキ/パー)を見ずに当てる" }
+    ]
+  },
+  {
+    label: "ミニゲーム系",
+    items: [
+      { slots: 2, text: "{A}番と{B}番で片足立ち対決、先に足をついた方が負け" },
+      { slots: 1, text: "{A}番の人が指定されたNGワードを使わずに1分間話す" },
+      { slots: 2, text: "{A}番と{B}番でジャンケンを5回連続、多く勝った方が勝ち" },
+      { slots: 2, text: "{A}番と{B}番で数字当てゲーム(1〜10の中で相手が思った数字を当てる)" },
+      { slots: 1, text: "{A}番の人が目を閉じたまま10秒数えて、ぴったりで止められるか挑戦" }
+    ]
+  },
+  {
+    label: "親密度チャレンジ",
+    items: [
+      { slots: 1, text: "{A}番の人が自己紹介を一言で言い直す" },
+      { slots: 2, text: "{A}番と{B}番が趣味を1つずつ紹介し合う" },
+      { slots: 1, text: "{A}番の人が好きな食べ物ランキングを3位まで発表する" },
+      { slots: 2, text: "{A}番と{B}番が今日の服装を褒め合う" },
+      { slots: 1, text: "{A}番の人が最近ハマっているお店を紹介する" },
+      { slots: 1, text: "{A}番の人が休日の過ごし方を話す" },
+      { slots: 2, text: "{A}番と{B}番がお互いの出身地の話をする" },
+      { slots: 1, text: "{A}番の人が好きな季節とその理由を話す" },
+      { slots: 2, text: "{A}番と{B}番が好きな音楽のジャンルを紹介し合う" },
+      { slots: 1, text: "{A}番の人が今日一番驚いたことを話す" },
+      { slots: 2, text: "{A}番と{B}番が学生時代のちょっとした黒歴史を話す" },
+      { slots: 2, text: "{A}番が{B}番のイメージを動物に例える" },
+      { slots: 2, text: "{A}番と{B}番が肩を組んで一緒に写真を撮る" },
+      { slots: 1, text: "{A}番の人が今のグループの中で誰に一番助けられているか話す" },
+      { slots: 2, text: "{A}番と{B}番が「せーの」でお互いの第一印象を同時に言う" },
+      { slots: 2, text: "{A}番と{B}番でハイタッチしながら一言褒め合う" },
+      { slots: 2, text: "{A}番が{B}番のいいところを1つ教える" },
+      { slots: 2, text: "{A}番と{B}番が腕を組んで乾杯する" },
+      { slots: 1, text: "{A}番の人が今のメンバーとの思い出を1つ話す" },
+      { slots: 2, text: "{A}番と{B}番が「せーの」で好きな相手のタイプを言い合う" },
+      { slots: 1, text: "{A}番の人が今一番挑戦したいことを話す" },
+      { slots: 2, text: "{A}番が{B}番に、最近気になっていることを1つ聞く" },
+      { slots: 2, text: "{A}番と{B}番が「ここだけの話」を1つずつ交換する" },
+      { slots: 1, text: "{A}番の人が自分が今頑張っていることを打ち明ける" },
+      { slots: 2, text: "{A}番と{B}番が今夜お互いに感謝していることを伝え合う" },
+      { slots: 1, text: "{A}番の人が最近悩んでいることを1つ話す" },
+      { slots: 2, text: "{A}番と{B}番がお互いに直してほしいところを1つずつ、やわらかく伝え合う" },
+      { slots: 1, text: "{A}番の人が今の自分に足りないと思うものを話す" },
+      { slots: 2, text: "{A}番と{B}番が今夜の中で一番印象に残った瞬間を伝え合う" },
+      { slots: 1, text: "{A}番の人が将来の夢や目標を1つ語る" }
     ]
   }
 ];
@@ -170,9 +230,12 @@ function shuffle(arr) {
   return a;
 }
 
-function pickUniqueNumbers(count, max) {
-  const pool = shuffle(Array.from({ length: max }, (_, i) => i + 1));
-  return pool.slice(0, count);
+function pickUniqueNumbers(count, max, exclude) {
+  let candidates = Array.from({ length: max }, (_, i) => i + 1);
+  if (exclude != null) {
+    candidates = candidates.filter((n) => n !== exclude);
+  }
+  return shuffle(candidates).slice(0, count);
 }
 
 function escapeHtml(str) {
@@ -590,7 +653,7 @@ function applyTemplate() {
     return;
   }
   const tpl = COMMAND_TEMPLATES_FLAT[Number(select.value)];
-  const nums = pickUniqueNumbers(tpl.slots, state.playerCount || 3);
+  const nums = pickUniqueNumbers(tpl.slots, state.playerCount || 3, state.myNumber);
 
   let text = tpl.text.replace("{A}", nums[0]);
   if (tpl.slots === 2) text = text.replace("{B}", nums[1]);
