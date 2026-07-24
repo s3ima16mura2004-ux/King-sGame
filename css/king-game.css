@@ -91,6 +91,7 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .lantern { animation: none; }
+  .draw-card.is-shuffling .draw-card-inner { animation: none; }
 }
 
 /* ---------- レイアウト ---------- */
@@ -204,11 +205,111 @@ body {
   border-color: var(--gold);
 }
 
-.code-input {
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
+.code-boxes {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.code-box {
+  width: 15%;
+  min-width: 44px;
+  height: 52px;
+  padding: 0;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--panel-line);
+  background: var(--bg-night-deep);
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 22px;
   font-weight: 700;
   text-align: center;
+  text-transform: uppercase;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.code-box:focus {
+  border-color: var(--gold);
+}
+
+/* ---------- エラーバナー ---------- */
+.error-banner {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 18px;
+  background: linear-gradient(90deg, #7a2d21, #a8402c);
+  color: var(--paper);
+  font-size: 13px;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+}
+
+.error-banner.is-info {
+  background: linear-gradient(90deg, #4a5a2f, #6b8038);
+}
+
+.error-banner-close {
+  background: none;
+  border: none;
+  color: var(--paper);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+/* ---------- ラウンド履歴パネル ---------- */
+.history-panel {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--panel-line);
+}
+
+.history-panel summary {
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--gold);
+  font-weight: 700;
+  outline: none;
+}
+
+.history-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.history-list li {
+  background: var(--bg-night-deep);
+  border: 1px solid var(--panel-line);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.history-round-badge {
+  color: var(--gold);
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+.history-king-name {
+  color: var(--text-muted);
+  font-size: 12px;
+  display: block;
+  margin-top: 2px;
 }
 
 .textarea-input {
@@ -221,6 +322,7 @@ body {
 .btn {
   display: block;
   width: 100%;
+  min-height: 48px;
   margin-top: 14px;
   padding: 14px 18px;
   border: none;
@@ -252,7 +354,8 @@ body {
 }
 
 .btn-small {
-  padding: 9px 14px;
+  min-height: 44px;
+  padding: 10px 16px;
   font-size: 13px;
   width: auto;
   display: inline-block;
@@ -307,7 +410,10 @@ body {
   background: var(--bg-night-deep);
   border: 1px solid var(--panel-line);
   border-radius: 999px;
-  padding: 8px 16px;
+  padding: 10px 18px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
   font-size: 14px;
 }
 
@@ -338,6 +444,17 @@ body {
 
 .draw-card.is-flipped .draw-card-inner {
   transform: rotateY(180deg);
+}
+
+.draw-card.is-shuffling .draw-card-inner {
+  animation: card-shuffle 0.45s ease-in-out infinite;
+}
+
+@keyframes card-shuffle {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  25% { transform: translateX(-8px) rotate(-5deg); }
+  50% { transform: translateX(0) rotate(0deg); }
+  75% { transform: translateX(8px) rotate(5deg); }
 }
 
 .draw-card-face {
